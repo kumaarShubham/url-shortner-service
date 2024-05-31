@@ -1,5 +1,5 @@
 const urlMap = new Map();
-const baseUrl = "http://short.url/";
+const baseUrl = "https://<your-username>.github.io/<repository-name>/";
 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const codeLength = 6;
 
@@ -13,8 +13,23 @@ function generateCode() {
     return code;
 }
 
+// Function to validate a URL
+function isValidURL(url) {
+    try {
+        new URL(url);
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
+
 // Function to encode a long URL to a short URL
 function encodeURL(longUrl) {
+    if (!isValidURL(longUrl)) {
+        alert("Invalid URL. Please enter a valid URL.");
+        return;
+    }
+
     if (urlMap.has(longUrl)) {
         return baseUrl + urlMap.get(longUrl);
     }
@@ -40,5 +55,10 @@ function decodeURL(shortUrl) {
 function shortenUrl() {
     const longUrl = document.getElementById("longUrl").value;
     const shortUrl = encodeURL(longUrl);
-    document.getElementById("shortUrl").innerText = `Shortened URL: ${shortUrl}`;
+
+    if (shortUrl) {
+        document.getElementById("shortUrl").innerText = `Shortened URL: ${shortUrl}`;
+    } else {
+        document.getElementById("shortUrl").innerText = "";
+    }
 }
