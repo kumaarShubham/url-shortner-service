@@ -1,5 +1,5 @@
 const urlMap = new Map();
-const baseUrl = "https://short.url/";
+const baseUrl = "http://short.url/";
 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const codeLength = 6;
 
@@ -15,7 +15,7 @@ function generateCode() {
 
 // Function to validate a URL using regex
 function isValidURL(url) {
-    const urlPattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+    const urlPattern = new RegExp('^(https?:\\/\\/)?' + // protocol (optional)
         '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
         '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
         '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
@@ -28,7 +28,7 @@ function isValidURL(url) {
 function encodeURL(longUrl) {
     if (!isValidURL(longUrl)) {
         alert("Invalid URL. Please enter a valid URL.");
-        return;
+        return null;
     }
 
     if (urlMap.has(longUrl)) {
