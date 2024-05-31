@@ -15,19 +15,14 @@ function generateCode() {
 
 // Function to validate a URL using regex
 function isValidURL(url) {
-    const urlPattern = new RegExp('^(https?:\\/\\/)?' + // protocol (optional)
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-    return !!urlPattern.test(url);
+    const urlPattern = /^www\.[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/;
+    return urlPattern.test(url);
 }
 
 // Function to encode a long URL to a short URL
 function encodeURL(longUrl) {
     if (!isValidURL(longUrl)) {
-        alert("Invalid URL. Please enter a valid URL.");
+        alert("Please enter url in form www.<urlstring>.com");
         return null;
     }
 
