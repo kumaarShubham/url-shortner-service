@@ -1,5 +1,5 @@
 const urlMap = new Map();
-const baseUrl = "https://<your-username>.github.io/<repository-name>/";
+const baseUrl = "https://short.url/";
 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 const codeLength = 6;
 
@@ -13,14 +13,15 @@ function generateCode() {
     return code;
 }
 
-// Function to validate a URL
+// Function to validate a URL using regex
 function isValidURL(url) {
-    try {
-        new URL(url);
-        return true;
-    } catch (_) {
-        return false;
-    }
+    const urlPattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return !!urlPattern.test(url);
 }
 
 // Function to encode a long URL to a short URL
